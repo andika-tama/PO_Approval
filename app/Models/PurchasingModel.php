@@ -8,7 +8,7 @@ class PurchasingModel extends Model
 {
     protected $table      = 'purchasing_list';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['date_needed', 'pm_approved', 'gm_approved', 'cfo_approved'];
+    protected $allowedFields = ['date_needed', 'pm_approved', 'gm_approved', 'cfo_approved', 'declined_desc'];
     protected $useTimestamps = TRUE;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'created_at';

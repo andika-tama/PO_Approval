@@ -42,9 +42,9 @@ switch (session()->get('level_user')) {
                             <td><?= $i++ ?></td>
                             <td><?= $pl['created_at'] ?></td>
                             <td><?= $pl['date_needed'] ?></td>
-                            <td class="<?= ($pl['pm_approved'] == NULL) ? "text-warning" : "text-success" ?>">
+                            <td class="">
                                 <a class="btn btn-primary approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
-                                <button class="btn btn-danger">Declined</button>
+                                <a class="btn btn-primary decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
                             </td>
                             </td>
                             <td>

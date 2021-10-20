@@ -31,16 +31,75 @@
                     $i = 1;
                     foreach ($purchasing_list as $pl) : ?>
                         <tr>
-                            <td><?= $i++ ?></td>
+                            <td><?= $pl['id'] ?></td>
                             <td><?= $pl['created_at'] ?></td>
                             <td><?= $pl['date_needed'] ?></td>
-                            <td class="<?= ($pl['pm_approved'] == NULL) ? "text-warning" : "text-success" ?>">
-                                <?= ($pl['pm_approved'] == NULL) ? "Waiting" : $pl['pm_approved'] ?>
+
+                            <?php
+                            switch ($pl['pm_approved']) {
+                                case "Approved":
+                                    $textColor = "text-success";
+                                    $textContent = $pl['pm_approved'];
+                                    break;
+
+                                case "Declined":
+                                    $textColor = "text-danger";
+                                    $textContent = $pl['pm_approved'];
+                                    break;
+                                default:
+                                    $textColor = "text-warning";
+                                    $textContent = "Waiting";
+                                    break;
+                            }
+                            ?>
+
+
+                            <td class="<?= $textColor ?>">
+                                <?= $textContent ?>
                             </td>
-                            <td class="<?= ($pl['gm_approved'] == NULL) ? "text-warning" : "text-success" ?>">
-                                <?= ($pl['gm_approved'] == NULL && $pl['pm_approved'] == "Approved") ? "Waiting" : $pl['pm_approved'] ?>
+
+                            <?php
+                            switch ($pl['gm_approved']) {
+                                case "Approved":
+                                    $textColor = "text-success";
+                                    $textContent = $pl['gm_approved'];
+                                    break;
+
+                                case "Declined":
+                                    $textColor = "text-danger";
+                                    $textContent = $pl['gm_approved'];
+                                    break;
+                                default:
+                                    $textColor = "text-warning";
+                                    $textContent = "Waiting";
+                                    break;
+                            }
+                            ?>
+                            <td class="<?= $textColor ?>">
+
+                                <?= ($pl['gm_approved'] == NULL && $pl['pm_approved'] == "Approved") ? "Waiting" : $pl['gm_approved'] ?>
+
                             </td>
-                            <td class="<?= ($pl['cfo_approved'] == NULL) ? "text-warning" : "text-success" ?>">
+
+                            <?php
+                            switch ($pl['cfo_approved']) {
+                                case "Approved":
+                                    $textColor = "text-success";
+                                    $textContent = $pl['cfo_approved'];
+                                    break;
+
+                                case "Declined":
+                                    $textColor = "text-danger";
+                                    $textContent = $pl['cfo_approved'];
+                                    break;
+                                default:
+                                    $textColor = "text-warning";
+                                    $textContent = "Waiting";
+                                    break;
+                            }
+                            ?>
+
+                            <td class="<?= $textColor ?>">
                                 <?= ($pl['cfo_approved'] == NULL && $pl['gm_approved'] == "Approved") ? "Waiting" : $pl['cfo_approved'] ?>
                             </td>
                             <td>

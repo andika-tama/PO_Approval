@@ -202,4 +202,47 @@ class Inventory extends BaseController
 
         return redirect()->to("/inventory/Approval_Purchase");
     }
+
+    // controller untuk menolak list
+    public function declining_list($id)
+    {
+        $role = session()->get('level_user');
+        $name = session()->get('name');
+        $desc = "Declined by " . $name;
+
+        // dd($desc);
+        switch ($role) {
+            case 3:
+                $this->PurchasingModel
+                    ->where('id', $id)
+                    ->set([
+                        'pm_approved' => "Declined",
+                        'declined_desc' => $desc
+                    ])
+                    ->update();
+                break;
+            case 4:
+                $this->PurchasingModel
+                    ->where('id', $id)
+                    ->set([
+                        'gm_approved' => "Declined",
+                        'declined_desc' => $desc
+                    ])
+                    ->update();
+                break;
+            case 5:
+                $this->PurchasingModel
+                    ->where('id', $id)
+                    ->set([
+                        'cfo_approved' => "Declined",
+                        'declined_desc' => $desc
+                    ])
+                    ->update();
+                break;
+        }
+
+        session()->setFlashdata('Success', 'Purchase List Berhasil Ditolak!');
+
+        return redirect()->to("/inventory/Approval_Purchase");
+    }
 }
