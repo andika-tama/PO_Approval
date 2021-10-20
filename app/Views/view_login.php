@@ -1,35 +1,36 @@
 <?= $this->extend('template'); ?>
 
 <?= $this->section('content'); ?>
-<div class="container justify-content-center mt-3">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"> <b>Please Sign In!</b> </div>
-                <div class="card-body">
-                    <form action="/auth/login" class="form-login" method="POST">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Username" required name="username" value="<?= old('username', NULL); ?>">
+
+<div class="container-fluid justify-content-center">
+    <div class="row justify-content-center min-vh-100 align-items-center">
+        <div class="col-md-4 border-top border-left border-bottom rounded-left bg-white form-login d-flex login-box justify-content-center align-items-center" style="min-height: 450px;">
+            <div class="container bg-white">
+                <div class="row">
+                    <div class="col-12">
+                        <div class=" text-center pb-4">
+                            <div class="login-color title-login">Login!</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="password" required name="password" value="<?= old('password', NULL); ?>">
-                        </div>
-                        <button class="btn btn-primary btn-spinner d-none" type="button" disabled>
-                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                            Loading...
-                        </button>
-                        <button class="btn btn-primary btn-login" type="submit">Login!</button>
-                    </form>
+                        <form action="/auth/login" class="form-login" method="POST">
+                            <div class="form-row">
+                                <div class="form-group col-md-12 pb-3">
+                                    <input type="text" class="form-control border-login" id="username" aria-describedby="emailHelp" placeholder="Username" required name="username" value="<?= old('username', NULL); ?>">
+                                </div>
+                                <div class="form-group pb-3">
+                                    <input type="password" class="form-control border-login" id="password" placeholder="password" required name="password" value="<?= old('password', NULL); ?>">
+                                </div>
+                                <div class="form-group d-grid gap-2">
+                                    <button class="btn btn-danger bg-login border-login" type="submit">Login!</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4 d-none d-md-block border-top border-right border-bottom login-box hero-login bg-white">
+        </div>
     </div>
-
-    <!-- <div class="box-confirm"> -->
-
-    <!-- </div> -->
 </div>
 
 <!-- swall -->
