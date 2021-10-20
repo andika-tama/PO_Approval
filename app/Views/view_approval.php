@@ -17,10 +17,10 @@ switch (session()->get('level_user')) {
 }
 ?>
 
-<div class="container-fluid mt-5 mr-3">
+<div class="container-fluid">
     <div class="row">
         <?= $this->include('sidebar') ?>
-        <div class="col-8">
+        <div class="col-9 p-5">
             <h2>Daftar Purchase List</h2>
             <hr>
             <table class="table table-striped" id="tb_product">
@@ -44,7 +44,7 @@ switch (session()->get('level_user')) {
                             <td><?= $pl['date_needed'] ?></td>
                             <td class="">
                                 <a class="btn btn-primary approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
-                                <a class="btn btn-primary decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
+                                <a class="btn btn-danger decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
                             </td>
                             </td>
                             <td>

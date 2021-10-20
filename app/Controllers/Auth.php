@@ -9,7 +9,10 @@ class Auth extends BaseController
     public function index()
     {
         if ($this->is_logged()) return redirect()->to('/inventory');
-        return view('view_login');
+        $data = [
+            'title' => 'Login'
+        ];
+        return view('view_login', $data);
     }
 
     public function login()

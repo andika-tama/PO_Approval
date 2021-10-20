@@ -7,6 +7,10 @@
     color: #F50057;
 }
 
+.sub-color {
+    color: #F4065B;
+}
+
 .bg-login {
     background-color: #F50057;
 }
@@ -49,4 +53,57 @@
 
 .height-50 {
     height: 50%;
+}
+
+.bg-img-1 {
+    background-image: url('/img/list.png');
+    background-repeat: no-repeat;
+    background-position-x: 350px;
+    background-position-y: -60px;
+}
+
+.bg-img-2 {
+    background-image: url('/img/empty.png');
+    background-repeat: no-repeat;
+    background-position-x: -30px;
+    background-position-y: -100px;
+}
+
+.bg-img-3 {
+    background-image: url('/img/oke.png');
+    background-repeat: no-repeat;
+    background-position-x: 350px;
+    background-position-y: -70px;
+}
+
+.sidebar-red {
+    background: linear-gradient(180deg, #F50057 0%, #FC045C 49.48%, #FD4A89 100%);
+    min-height: 100vh;
+}
+
+.menubar {
+    min-height: 45px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bolder;
+    width: 100%;
+}
+
+.menubar a {
+    color: white;
+    text-decoration: none;
+
+}
+
+.menubar:hover {
+    background: #EB0456;
+}
+
+.icon-sb {
+    margin: 30px 0px;
+    background-image: url('/img/cart.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 100px;
+    background-position-x: 110px;
 }

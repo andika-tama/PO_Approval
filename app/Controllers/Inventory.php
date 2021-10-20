@@ -25,7 +25,11 @@ class Inventory extends BaseController
             return redirect()->to('/auth/index')->withInput();
         }
 
-        return view('view_dashboard');
+        $data = [
+            'title' => 'dashboard'
+        ];
+
+        return view('view_dashboard', $data);
     }
 
     public function Submit_EmptyStock()
@@ -43,7 +47,8 @@ class Inventory extends BaseController
         // select * from product
         $getData = $this->ProductModel->findAll();
         $data = [
-            'product' => $getData
+            'product' => $getData,
+            'title' => 'Stock Empty'
         ];
         return view('view_emptyStock', $data);
     }
@@ -105,7 +110,8 @@ class Inventory extends BaseController
         $SubmissionModel = new SubmissionModel();
         $getData = $SubmissionModel->getData();
         $data = [
-            'submission' => $getData
+            'submission' => $getData,
+            'title' => 'Purchasing List'
         ];
 
         // tampilkan view pembuatan pruchasing list (form)
@@ -152,7 +158,8 @@ class Inventory extends BaseController
     public function view_purchaselist()
     {
         $data = [
-            'purchasing_list' => $this->PurchasingModel->findAll()
+            'purchasing_list' => $this->PurchasingModel->findAll(),
+            'title' => 'Approval Status'
         ];
 
         return view('view_purchaselist', $data);
@@ -167,7 +174,8 @@ class Inventory extends BaseController
         }
 
         $data = [
-            'purchasing_list' => $this->PurchasingModel->getWaitForApproval($role)
+            'purchasing_list' => $this->PurchasingModel->getWaitForApproval($role),
+            'title' => 'Approval Page'
         ];
 
         return view("view_approval", $data);

@@ -8,10 +8,10 @@ $db      = \Config\Database::connect();
 $builder = $db->table('submission');
 ?>
 
-<div class="container-fluid mt-5 mr-3">
+<div class="container-fluid">
     <div class="row">
         <?= $this->include('sidebar') ?>
-        <div class="col-8">
+        <div class="col-9 p-5">
             <h2>Ajukan Stock Kosong!</h2>
             <hr>
             <div class="row mb-3 mt-3">

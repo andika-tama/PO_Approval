@@ -20,7 +20,7 @@
 </head>
 
 
-<title>Sign In!</title>
+<title><?= $title ?></title>
 </head>
 
 <body class="bg-light">
@@ -65,6 +65,25 @@
                 title: 'Approve this purchase list?',
                 text: "Dengan menyetujui, maka data akan diteruskan ke bagian berikutnya!",
                 imageUrl: '/img/approval.png',
+                imageWidth: 300,
+                imageHeight: 200,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approved it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = this.href;
+                }
+            })
+        })
+
+        $('.decline-button').click(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Declined this purchase list?',
+                text: "Dengan menolak, daftar ini akan kembali ke bagian purchasing!",
+                imageUrl: '/img/decline.png',
                 imageWidth: 300,
                 imageHeight: 200,
                 showCancelButton: true,
