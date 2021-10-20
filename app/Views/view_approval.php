@@ -23,11 +23,6 @@ switch (session()->get('level_user')) {
         <div class="col-8">
             <h2>Daftar Purchase List</h2>
             <hr>
-            <div class="row mb-3 mt-3">
-                <div class="col">
-                    <?= session()->getFlashdata('Alert') ?>
-                </div>
-            </div>
             <table class="table table-striped" id="tb_product">
                 <thead>
                     <tr class="text-center">
@@ -66,5 +61,10 @@ switch (session()->get('level_user')) {
 <div class="row mt-4"></div>
 </div>
 
+<!-- swall -->
+<div class="d-none">
+    <div class="flash-data-danger" data-flash="<?= session()->getFlashdata('Danger') ?>"></div>
+    <div class="flash-data" data-flash="<?= session()->getFlashdata('Success') ?>"></div>
+</div>
 
 <?= $this->endSection() ?>

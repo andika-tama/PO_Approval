@@ -112,4 +112,10 @@
 </div>
 
 
+<!-- swall -->
+<div class="d-none">
+    <div class="flash-data-danger" data-flash="<?= session()->getFlashdata('Danger') ?>"></div>
+    <div class="flash-data" data-flash="<?= session()->getFlashdata('Success') ?>"></div>
+</div>
+
 <?= $this->endSection() ?>

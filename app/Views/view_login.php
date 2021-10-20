@@ -7,11 +7,6 @@
             <div class="card">
                 <div class="card-header"> <b>Please Sign In!</b> </div>
                 <div class="card-body">
-                    <div class="row mb-3 mt-3">
-                        <div class="col">
-                            <?= session()->getFlashdata('Alert') ?>
-                        </div>
-                    </div>
                     <form action="/auth/login" class="form-login" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
@@ -35,6 +30,12 @@
     <!-- <div class="box-confirm"> -->
 
     <!-- </div> -->
+</div>
+
+<!-- swall -->
+<div class="d-none">
+    <div class="flash-data-danger" data-flash="<?= session()->getFlashdata('Danger') ?>"></div>
+    <div class="flash-data" data-flash="<?= session()->getFlashdata('Success') ?>"></div>
 </div>
 
 <?= $this->endSection(); ?>

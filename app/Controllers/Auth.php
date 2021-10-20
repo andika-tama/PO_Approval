@@ -42,26 +42,21 @@ class Auth extends BaseController
                 ];
 
                 $session->set($dataSession);
-
+                $pesan = "Selamat datang " . $dataUser['name'] . "!";
+                session()->setFlashdata('Success', $pesan);
                 // arahkan ke controller inventory
                 return redirect()->to('/inventory/index');
             } else {
 
-                // buat flash data
-                session()->setFlashdata('Alert', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    Password yang and masukan salah!!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>');
+                // buat flash data untuk swall
+                session()->setFlashdata('Danger', 'Password yang Anda masukan salah!');
 
                 // redirect ke menu login
                 return redirect()->to('/auth/index')->withInput();
             }
         } else {
             // buat flash data
-            session()->setFlashdata('Alert', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Username tidak tersedia!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>');
+            session()->setFlashdata('Danger', 'Username yang Anda masukan tidak terdaftar!');
 
             // redirect ke menu login
             return redirect()->to('/auth/index')->withInput();

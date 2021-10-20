@@ -59,12 +59,8 @@ class Inventory extends BaseController
 
         $this->ProductModel->save($data);
 
-        session()->setFlashdata('Alert', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Product Berhasil Ditambahkan!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
 
-        // redirect ke menu login
+        session()->setFlashdata('Success', 'Product berhasil ditambahkan!');
         return redirect()->to('/inventory/Submit_EmptyStock')->withInput();
     }
 
@@ -88,11 +84,11 @@ class Inventory extends BaseController
             Product Berhasil Diajukan!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>');
-
-        // redirect ke menu login
+        session()->setFlashdata('Success', 'Product berhasil diajukan!');
         return redirect()->to('/inventory/Submit_EmptyStock')->withInput();
     }
 
+    // controller untuk menampilkan purchasing list
     public function make_purchase()
     {
         $session = session();
@@ -105,59 +101,52 @@ class Inventory extends BaseController
             dd("Akses ditolak! Kamu tidak diizinkan menggunakan menu ini!");
         }
 
+        // ambil seluruh data barang yg telah diajukan
         $SubmissionModel = new SubmissionModel();
         $getData = $SubmissionModel->getData();
         $data = [
             'submission' => $getData
         ];
 
-        // dd($getData);
+        // tampilkan view pembuatan pruchasing list (form)
         return view('view_submissionProduct', $data);
     }
 
     // controller membuat purchase list
     public function make_purchaseList()
     {
-
-        $purchasingModel = new PurchasingModel();
-        $transactionModel = new TransactionModel();
-
-
+        // ambil id dari tiap2 barang yg diajukan
         $data_item = $this->request->getVar('id[]');
 
-
         // buat purchasing list baru!
+        // ErrorListTama tambahin buat pengaju
+        // 'created_by' => session()->get('name')
         $dataPurchase = [
             'date_needed' => $this->request->getVar('date_needed')
         ];
 
-        $purchasingModel->save($dataPurchase);
+        // insert ke purchasing list table
+        $this->PurchasingModel->save($dataPurchase);
 
         // ambil id dari purchasing list yang baru dibuat
-        $getPurchaseId = $purchasingModel->getLastId();
+        $getPurchaseId = $this->PurchasingModel->getLastId();
 
-        // masukan ke tabel transaksi untuk detail barangnya
-
+        // masukan ke tabel transaksi untuk detail barangnya (sebanyak jumlah barang yang dimasukkan)
         foreach ($data_item as $id_sub) {
 
+            // ErrorListTama hilangkan 'quantity'
             $detail = [
                 'id_purchasing' => $getPurchaseId,
                 'id_submission' => $id_sub,
                 'quantity' => 1,
             ];
 
-            // dd($detail);
-            $transactionModel->save($detail);
+            $this->TransactionModel->save($detail);
         }
 
-        session()->setFlashdata('Alert', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Purchase List Berhasil Dibuat!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
-
-        // redirect ke menu login
-        return redirect()->to('/inventory/make_purchase')->withInput();
-        // dd($getPurchaseId);
+        session()->setFlashdata('Success', 'Purchase List Berhasil Dibuat!');
+        // kembalikan ke view purchasing list
+        return redirect()->to('/inventory/view_purchaselist')->withInput();
     }
 
     public function view_purchaselist()
@@ -166,14 +155,13 @@ class Inventory extends BaseController
             'purchasing_list' => $this->PurchasingModel->findAll()
         ];
 
-        // dd($data);
         return view('view_purchaselist', $data);
     }
 
     public function approval_purchase()
     {
         $role = session()->get('level_user');
-        // cek route bila tidak ada role maka tidak bisa masuk
+        // cek bila tidak ada role maka tidak bisa masuk
         if ($role == NULL) {
             return redirect()->to("/inventory");
         }
@@ -210,11 +198,7 @@ class Inventory extends BaseController
                 break;
         }
 
-        session()->setFlashdata('Alert', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Purchase List Berhasil Dikonfirmasi!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
-
+        session()->setFlashdata('Success', 'Purchase List Berhasil Dikonfirmasi!');
 
         return redirect()->to("/inventory/Approval_Purchase");
     }
