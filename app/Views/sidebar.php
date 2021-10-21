@@ -18,8 +18,10 @@
                     <a href="/inventory/view_purchaselist">Purchase List</a>
                 </div>
                 <div class="col-12 menubar d-flex align-items-center">
-
                     <a href="/inventory/make_purchase">Make Purchase List</a>
+                </div>
+                <div class="col-12 menubar d-flex align-items-center">
+                    <a href="/inventory/resubmit_purchase_declined">Resubmitted Purchase List</a>
                 </div>
             <?php endif; ?>
             <?php if (session()->get('level_user') == 3 || session()->get('level_user') == 4 || session()->get('level_user') == 5) : ?>

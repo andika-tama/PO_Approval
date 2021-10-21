@@ -57,4 +57,14 @@ class PurchasingModel extends Model
         }
         return $row;
     }
+
+    public function getDeclined()
+    {
+        $db = db_connect();
+        $builder = $db->table('purchasing_list');
+        $declined = $builder->select('*')
+            ->where('status =', 'Declined')->orderBy('date_needed', "ASC")->get()->getResultArray();
+
+        return $declined;
+    }
 }

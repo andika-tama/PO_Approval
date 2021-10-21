@@ -312,6 +312,17 @@ class Inventory extends BaseController
         return redirect()->to("/inventory/Approval_Purchase");
     }
 
+    // controller untuk menampilkan pl yg ditolak
+    public function resubmit_purchase_declined()
+    {
+        $data = [
+            'purchasing_list' => $this->PurchasingModel->getDeclined(),
+            'title' => 'List Declined Purchase List'
+        ];
+
+        return view('view_purchaselist', $data);
+    }
+
     // untuk ajuan ulang
     public function resubmit_purchase($id)
     {
@@ -329,15 +340,15 @@ class Inventory extends BaseController
         $dataPurchase = $this->PurchasingModel->find($id);
 
         // ambil seluruh data barang yg telah diajukan
-        $SubmissionModel = new SubmissionModel();
-
         // ambil id sub dari transaksi
         $idSub = $this->TransactionModel->getIdSubByPL($id);
         // keluarkan (flatten) array agar mudah dicari
         foreach ($idSub as $ids) {
             $checked[] = $ids['id_submission'];
         }
-        $getData = $SubmissionModel->getData();
+
+        // ambol seluruh data submission yg dalam waiting or declined
+        $getData = $this->SubmissionModel->getDataPL($id);
 
         $data = [
             'submission' => $getData,
@@ -385,11 +396,9 @@ class Inventory extends BaseController
             $this->TransactionModel->delete($dd['id']);
         }
 
-        // ubah status submission ke proccess lagi
-
-        // tambahkan id baru
         foreach ($data_item as $id_sub) {
-
+            // ubah status submission ke proccess lagi
+            // tambahkan id baru
             $this->SubmissionModel
                 ->where('id', $id_sub)
                 ->set([
