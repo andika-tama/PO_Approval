@@ -112,3 +112,15 @@
     min-height: 100px;
     background-position-x: 110px;
 }
+
+.card-cost {
+    background-image: url('/img/wallet.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    max-height: 200px;
+    background-position-x: 150px;
+    background-position-y: 50px;
+    font-weight: bolder;
+    padding: 20px;
+    font-size: 1.6em;
+}

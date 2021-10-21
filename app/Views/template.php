@@ -106,7 +106,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Approved it!'
+                confirmButtonText: 'Yes, Declined it!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = this.href;

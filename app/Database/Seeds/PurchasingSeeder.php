@@ -38,7 +38,7 @@ class PurchasingSeeder extends Seeder
                 'created_at' => Time::Now(),
                 'date_needed'    => date('2021-11-20'),
                 'pm_approved' => "Approved",
-                'gm_approved' => NULL,
+                'gm_approved' => "Waiting",
                 'cfo_approved' => NULL,
                 'created_by' => "Samy Samuel",
                 'total_cost' => 3000000,
@@ -50,7 +50,7 @@ class PurchasingSeeder extends Seeder
                 'date_needed'    => date('2021-11-20'),
                 'pm_approved' => "Approved",
                 'gm_approved' => "Approved",
-                'cfo_approved' => NULL,
+                'cfo_approved' => "Waiting",
                 'created_by' => "Samy Samuel",
                 'total_cost' => 3000000,
                 'status' => "Proccess"

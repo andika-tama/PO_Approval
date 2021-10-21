@@ -44,8 +44,9 @@ class Inventory extends BaseController
             dd("Akses ditolak! Kamu tidak diizinkan menggunakan menu ini!");
         }
 
-        // select * from product
-        $getData = $this->ProductModel->findAll();
+        // select * from product where NOT in Submission!
+        $getData = $this->ProductModel->getDataNotSubmitted();
+
         $data = [
             'product' => $getData,
             'title' => 'Stock Empty'
@@ -97,6 +98,7 @@ class Inventory extends BaseController
     public function make_purchase()
     {
         $session = session();
+        // taruh di construct
         if (!$session->get('is_logged')) {
             return redirect()->to('/auth/index')->withInput();
         }

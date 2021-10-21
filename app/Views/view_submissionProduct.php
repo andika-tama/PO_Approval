@@ -8,66 +8,60 @@
         <div class="col-9 p-5">
             <h2>Buat Purchase List</h2>
             <hr>
-
-            <div class="row mb-3 mt-3">
-                <div class="col">
-                    <?= session()->getFlashdata('Alert') ?>
-                </div>
-            </div>
             <form action="/inventory/make_purchaseList" method="POST">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-login text-white text-center">
                         Make Purchase List!
                     </div>
                     <div class="card-body">
-
                         <div class="container-fluid">
+                            <!-- baris pertama : Keterangan tanggal dan COST -->
                             <div class="row mt-3">
-                                <div class="col-3">
-                                    Pengaju
+                                <!-- keterangan PL (tanggal dan pengaju) -->
+                                <div class="col-7">
+                                    <div class="container">
+                                        <!-- keterangan pengaju -->
+                                        <div class="row">
+                                            <div class="col-5"> Pengaju </div>
+                                            <div class="col-1"> : </div>
+                                            <div class="col-6"> <b><?= session()->get('name') ?></b></div>
+                                        </div>
+                                        <!-- tanggal Pengajuan PL -->
+                                        <div class="row mt-3">
+                                            <div class="col-5">Tanggal Pengajuan</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-5"><b><?= date("Y/m/d") ?> </b></div>
+                                        </div>
+                                        <!-- tanggal pengajuan -->
+                                        <div class="row mt-3">
+                                            <div class="col-5">Tanggal Dibutuhkan</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-5"><input type="date" name="date_needed" required></div>
+                                        </div>
+                                        <!-- keterangan pilih produk -->
+                                        <div class="row mt-3">
+                                            <div class="col-5">Pilih Product</div>
+                                            <div class="col-1">:</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    :
-                                </div>
-                                <div class="col-3">
-                                    <b><?= session()->get('name') ?></b>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-3">
-                                    Tanggal Pengajuan
-                                </div>
-                                <div class="col-1">
-                                    :
-                                </div>
-                                <div class="col-3">
-                                    <b><?= date("Y/m/d") ?> </b>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-3">
-                                    Tanggal Dibutuhkan
-                                </div>
-                                <div class="col-1">
-                                    :
-                                </div>
-                                <div class="col-3">
-                                    <input type="date" name="date_needed">
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-3">
-                                    Pilih Product
-                                </div>
-                                <div class="col-1">
-                                    :
+                                <!-- total cost -->
+                                <div class="col-5">
+                                    <div class="card">
+                                        <div class="card-cost">
+                                            <h2>Total Cost (Rp) :</h2>
+                                            <div class="total-cost text-danger m-4">0</div>
+                                            <input type="hidden" name="total_cost" class="allCost" value="">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- tabel pilih product yg telah di submit -->
                             <div class="row mt-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <table class="table" id="tb_product">
+                                        <table class="table table-striped" id="tb_product">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th scope="col">Pilih Product</th>
@@ -95,11 +89,6 @@
                                             </tbody>
                                         </table>
 
-                                        <div class="div">
-                                            <h2>Total Cost :</h2>
-                                            <div class="total-cost">0</div>
-                                            <input type="hidden" name="total_cost" class="allCost" value="">
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +97,7 @@
                     </div>
                     <div class="card-footer text-muted">
                         <div class="d-grid gap-2">
-                            <button type="submit" name="submit" class="btn btn-primary"> Buat Purchase List</button>
+                            <button type="submit" name="submit" class="btn btn-dark bg-login border-login"> Buat Purchase List</button>
                         </div>
                     </div>
             </form>

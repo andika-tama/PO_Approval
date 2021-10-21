@@ -18,12 +18,25 @@ class SubmissionModel extends Model
         $db = db_connect();
         $builder = $db->table('submission');
 
-        // nanti tambahkan where status not approved!
-        $builder->select('*')->join('product', 'product.id = submission.id_product')->where("priority = 'NO'")->orderBy('date_needed', 'ASC');
+        // Select * from submission join product where product.id = sum... AND priority = NO AND (status = waiting OR Declined) orderBy date needed ASC
+        $builder->select('*')
+            ->join('product', 'product.id = submission.id_product')
+            ->where("priority = 'NO'")
+            ->GroupStart()->orWhere("status_submission = 'Waiting'")->orWhere("status_submission = 'Declined'")
+            ->groupEnd()
+            ->orderBy('date_needed', 'ASC');
         $NotPriority = $builder->get()->getResultArray();
 
+
         $builder2 = $db->table('submission');
-        $builder2->select('*')->join('product', 'product.id = submission.id_product')->where("priority = 'YES'")->orderBy('date_needed', 'ASC');
+        $builder2->select('*')
+            ->join('product', 'product.id = submission.id_product')
+            ->where("priority = 'YES'")
+            ->GroupStart()
+            ->orWhere('status_submission =', 'Waiting')
+            ->orWhere('status_submission =', 'Declined')
+            ->groupEnd()
+            ->orderBy('date_needed', 'ASC');
         $Priority = $builder2->get()->getResultArray();
 
         return array_merge_recursive($Priority, $NotPriority);
