@@ -44,7 +44,7 @@
 
     <!-- script untuk tipa2 disable product yg diselect -->
     <script>
-        var totalCost = 0;
+        var totalCost = ($('.allCost').data('total') !== undefined) ? $('.allCost').data('total') : 0;
         $(".select-product").on('change', function() {
             const id = $(this).val();
 
@@ -57,7 +57,11 @@
 
         $(".trigger").on('change', function() {
             const checked = $(this).is(":checked");
+            $(this).removeAttr('checked');
+
             if (checked) {
+                // if ($(this).attr('checked') == "checked") {} else {
+                // }
                 totalCost += $(this).data('price');
             } else {
                 totalCost -= $(this).data('price');

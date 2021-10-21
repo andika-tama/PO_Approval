@@ -159,7 +159,13 @@ class Inventory extends BaseController
         // masukan ke tabel transaksi untuk detail barangnya (sebanyak jumlah barang yang dimasukkan)
         foreach ($data_item as $id_sub) {
 
-            // ErrorListTama hilangkan 'quantity'
+            $this->SubmissionModel
+                ->where('id', $id_sub)
+                ->set([
+                    'status_submission' => "Proccess",
+                ])
+                ->update();
+
             $detail = [
                 'id_purchasing' => $getPurchaseId,
                 'id_submission' => $id_sub,
@@ -168,6 +174,7 @@ class Inventory extends BaseController
             $this->TransactionModel->save($detail);
         }
 
+        // ubah status yg baru jadi processing
         session()->setFlashdata('Success', 'Purchase List Berhasil Dibuat!');
         // kembalikan ke view purchasing list
         return redirect()->to('/inventory/view_purchaselist')->withInput();
@@ -303,5 +310,102 @@ class Inventory extends BaseController
         session()->setFlashdata('Success', 'Purchase List Berhasil Ditolak!');
 
         return redirect()->to("/inventory/Approval_Purchase");
+    }
+
+    // untuk ajuan ulang
+    public function resubmit_purchase($id)
+    {
+        $session = session();
+        // taruh di construct
+        if (!$session->get('is_logged')) {
+            return redirect()->to('/auth/index')->withInput();
+        }
+
+        // cek apakah user adalah Bag. Purchasing?
+        if ($session->get('level_user') != 2) {
+            dd("Akses ditolak! Kamu tidak diizinkan menggunakan menu ini!");
+        }
+
+        $dataPurchase = $this->PurchasingModel->find($id);
+
+        // ambil seluruh data barang yg telah diajukan
+        $SubmissionModel = new SubmissionModel();
+
+        // ambil id sub dari transaksi
+        $idSub = $this->TransactionModel->getIdSubByPL($id);
+        // keluarkan (flatten) array agar mudah dicari
+        foreach ($idSub as $ids) {
+            $checked[] = $ids['id_submission'];
+        }
+        $getData = $SubmissionModel->getData();
+
+        $data = [
+            'submission' => $getData,
+            'title' => 'Purchasing List',
+            'purchase' => $dataPurchase,
+            'dataSub' => $checked
+        ];
+
+        // tampilkan view pembuatan pruchasing list (form)
+        return view('view_resubmit', $data);
+    }
+
+    public function resubmitted()
+    {
+        // ambil id dari tiap2 barang yg diajukan
+        $data_item = $this->request->getVar('id[]');
+        $total_cost = $this->request->getVar('total_cost');
+        $id_purchase = $this->request->getVar('id_pl');
+
+        $this->PurchasingModel
+            ->where('id', $id_purchase)
+            ->set([
+                'total_cost' => $total_cost,
+                'pm_approved' => "Waiting",
+                'gm_approved' => NULL,
+                'cfo_approved' => NULL,
+                'status' => "Proccess",
+            ])
+            ->update();
+
+        // delete tabel lama transaksi
+        $deleteData = $this->TransactionModel->getIdByPL($id_purchase);
+        $idSubmission = $this->TransactionModel->getIdSubByPL($id_purchase);
+
+        foreach ($idSubmission as $idS) {
+            $this->SubmissionModel
+                ->where('id', $idS['id_submission'])
+                ->set([
+                    'status_submission' => "Proccess",
+                ])
+                ->update();
+        }
+
+        foreach ($deleteData as $dd) {
+            $this->TransactionModel->delete($dd['id']);
+        }
+
+        // ubah status submission ke proccess lagi
+
+        // tambahkan id baru
+        foreach ($data_item as $id_sub) {
+
+            $this->SubmissionModel
+                ->where('id', $id_sub)
+                ->set([
+                    'status_submission' => "Proccess",
+                ])
+                ->update();
+            $detail = [
+                'id_purchasing' => $id_purchase,
+                'id_submission' => $id_sub,
+            ];
+
+            $this->TransactionModel->save($detail);
+        }
+
+        session()->setFlashdata('Success', 'Purchase List Berhasil Diajukan Ulang!');
+        // kembalikan ke view purchasing list
+        return redirect()->to('/inventory/view_purchaselist')->withInput();
     }
 }

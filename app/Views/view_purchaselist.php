@@ -93,7 +93,7 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="#">Lihat Detail</a>
+                                <a href="/inventory/resubmit_purchase/<?= $pl['id'] ?>">Ajukan Ulang</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
