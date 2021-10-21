@@ -15,10 +15,24 @@ class PurchasingSeeder extends Seeder
             [
                 'created_at' => Time::Now(),
                 'date_needed'    => date('2021-11-20'),
-                'pm_approved' => NULL,
+                'pm_approved' => "Waiting",
                 'gm_approved' => NULL,
                 'cfo_approved' => NULL,
-                'declined_desc' => NULL
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Proccess"
+
+            ],
+            [
+                'created_at' => Time::Now(),
+                'date_needed'    => date('2021-11-20'),
+                'pm_approved' => "Declined",
+                'gm_approved' => NULL,
+                'cfo_approved' => NULL,
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Declined"
+
             ],
             [
                 'created_at' => Time::Now(),
@@ -26,7 +40,10 @@ class PurchasingSeeder extends Seeder
                 'pm_approved' => "Approved",
                 'gm_approved' => NULL,
                 'cfo_approved' => NULL,
-                'declined_desc' => NULL
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Proccess"
+
             ],
             [
                 'created_at' => Time::Now(),
@@ -34,7 +51,10 @@ class PurchasingSeeder extends Seeder
                 'pm_approved' => "Approved",
                 'gm_approved' => "Approved",
                 'cfo_approved' => NULL,
-                'declined_desc' => NULL
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Proccess"
+
             ],
             [
                 'created_at' => Time::Now(),
@@ -42,15 +62,20 @@ class PurchasingSeeder extends Seeder
                 'pm_approved' => "Approved",
                 'gm_approved' => "Approved",
                 'cfo_approved' => "Approved",
-                'declined_desc' => NULL
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Approved"
+
             ],
             [
                 'created_at' => Time::Now(),
                 'date_needed'    => date('2021-11-20'),
-                'pm_approved' => NULL,
-                'gm_approved' => NULL,
+                'pm_approved' => "Approved",
+                'gm_approved' => "Declined",
                 'cfo_approved' => NULL,
-                'declined_desc' => "Not Enough Budget! By XXX (Tittle XX)"
+                'created_by' => "Samy Samuel",
+                'total_cost' => 3000000,
+                'status' => "Declined"
             ],
         ];
 
