@@ -13,6 +13,20 @@ class SubmissionModel extends Model
     protected $useTimestamps = FALSE;
 
     // model untuk mengurutkan data berdasarkan priority
+    public function getDataTask()
+    {
+        $db = db_connect();
+        $builder = $db->table('submission');
+
+        // Select * from submission join product where product.id = sum... AND priority = NO AND (status = waiting OR Declined) orderBy date needed ASC
+        $builder->select('id')
+            ->GroupStart()->orWhere("status_submission = 'Waiting'")->orWhere("status_submission = 'Declined'")
+            ->groupEnd();
+        $result = $builder->countAllResults();
+
+        return $result;
+    }
+
     public function getData()
     {
         $db = db_connect();

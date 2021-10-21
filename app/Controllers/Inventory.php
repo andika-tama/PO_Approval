@@ -19,14 +19,24 @@ class Inventory extends BaseController
     }
     public function index()
     {
-        // cek session apakah sudah login
         $session = session();
+        $role = $session->get('level_user');
+        // cek session apakah sudah login
         if (!$session->get('is_logged')) {
             return redirect()->to('/auth/index')->withInput();
         }
 
+        // ambil data task
+        $task = 0;
+        if ($role == 2) {
+            $task =  $this->SubmissionModel->getDataTask();
+        } else if ($role == 3 || $role == 4 || $role == 5) {
+            $task = $this->PurchasingModel->getTaskApproval($role);
+        }
+
         $data = [
-            'title' => 'dashboard'
+            'title' => 'dashboard',
+            'task' => $task
         ];
 
         return view('view_dashboard', $data);

@@ -1,3 +1,19 @@
+<?php
+// untuk tesk dalam card welcome!
+
+if ($task !== 0) {
+    if (session()->get('level_user') == 2) {
+        $pesan = "Terdapat <b>" . $task . "</b> Barang Yang menunggu dibuatkan list loh! Jangan sampai terlewat!";
+    } else if (session()->get('level_user') > 2) {
+        $pesan = "Terdapat <b>" . $task . "</b> Purchasing List yang perlu kamu konfirmasi! Ayo buruan cek listnya!";
+    }
+} else {
+    $pesan = "Selamat! Tugas Anda sudah selesai seluruhnya! Terima kasih atas kerja kerasnya!";
+}
+?>
+
+
+
 <?= $this->extend('template'); ?>
 
 <?php $this->section('content') ?>
@@ -17,7 +33,7 @@
                         <div class="row login-box align-items-center">
                             <div class="col-7 p-5">
                                 <h5 class="mb-3 login-color"> <b> Selamat datang, <?= session()->get('name') ?> </b></h5>
-                                <h6 class="mb-4 sub-color">Ada XX Barang Yang menunggu dibuatkan list loh! Jangan sampai terlewat!</h6>
+                                <h6 class="mb-4 sub-color"><?= $pesan ?></h6>
 
                                 <a class="btn btn-danger bg-login border-login" href="/inventory/make_purchase">Lihat!</a>
                             </div>
@@ -51,7 +67,7 @@
                         <div class="row login-box align-items-center">
                             <div class="col-7 p-5">
                                 <h5 class="mb-3 login-color"> <b> Selamat datang, <?= session()->get('name') ?> </b></h5>
-                                <h6 class="mb-4 sub-color">Ada yang menunggu loh! XX Purchase List menunggu konfirmasimu!</h6>
+                                <h6 class="mb-4 sub-color"><?= $pesan ?></h6>
 
                                 <a class="btn btn-danger bg-login border-login" href="/inventory/approval_purchase">Lihat!</a>
                             </div>

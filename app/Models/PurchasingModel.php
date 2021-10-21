@@ -22,6 +22,24 @@ class PurchasingModel extends Model
         return $row[0]['id'];
     }
 
+    public function getTaskApproval($role)
+    {
+        $db = db_connect();
+        $builder = $db->table('purchasing_list');
+        switch ($role) {
+            case 3:
+                $row = $builder->select("id")->where('pm_approved', "Waiting")->countAllResults();
+                break;
+            case 4:
+                $row = $builder->select("id")->where('gm_approved', "Waiting")->countAllResults();
+                break;
+            case 5:
+                $row = $builder->select("id")->where('cfo_approved', "Waiting")->countAllResults();
+                break;
+        }
+
+        return $row;
+    }
     public function getWaitForApproval($role)
     {
         $db = db_connect();
