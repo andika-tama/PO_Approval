@@ -32,6 +32,16 @@ class AddPengajuan extends Migration
             'date_needed' => [
                 'type' => 'DATE'
             ],
+            'status_submission' => [
+                'type' => 'ENUM("Waiting","Proccess","Approved", "Declined")',
+                'default' => 'Waiting',
+                'null' => True
+            ],
+            'total_price' => [
+                'type' => 'INT',
+                'constraint' => 20,
+                'null' => True
+            ]
 
         ]);
 

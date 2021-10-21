@@ -24,12 +24,7 @@ class AddTransaction extends Migration
                 'type' => 'INT',
                 'constraint' => 7,
                 'unsigned' => true,
-            ],
-            'quantity' => [
-                'type' => 'INT',
-                'constraint' => 5
             ]
-
         ]);
 
         $this->forge->addPrimaryKey('id');

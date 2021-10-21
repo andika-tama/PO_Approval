@@ -8,7 +8,7 @@ class PurchasingModel extends Model
 {
     protected $table      = 'purchasing_list';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['date_needed', 'pm_approved', 'gm_approved', 'cfo_approved', 'declined_desc'];
+    protected $allowedFields = ['date_needed', 'pm_approved', 'gm_approved', 'cfo_approved', 'created_by', 'total_cost', 'status'];
     protected $useTimestamps = TRUE;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'created_at';
@@ -28,13 +28,13 @@ class PurchasingModel extends Model
         $builder = $db->table('purchasing_list');
         switch ($role) {
             case 3:
-                $row = $builder->select("*")->where('pm_approved', NULL)->orderBy('date_needed', "ASC")->get()->getResultArray();
+                $row = $builder->select("*")->where('pm_approved', "Waiting")->orderBy('date_needed', "ASC")->get()->getResultArray();
                 break;
             case 4:
-                $row = $builder->select("*")->where('pm_approved', "Approved")->where('gm_approved', NULL)->orderBy('date_needed', "ASC")->get()->getResultArray();
+                $row = $builder->select("*")->where('gm_approved', "Waiting")->orderBy('date_needed', "ASC")->get()->getResultArray();
                 break;
             case 5:
-                $row = $builder->select("*")->where('pm_approved', "Approved")->where('gm_approved', "Approved")->where('cfo_approved', NULL)->orderBy('date_needed', "ASC")->get()->getResultArray();
+                $row = $builder->select("*")->where('cfo_approved', "Waiting")->orderBy('date_needed', "ASC")->get()->getResultArray();
                 break;
         }
         return $row;

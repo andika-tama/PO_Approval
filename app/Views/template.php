@@ -44,6 +44,7 @@
 
     <!-- script untuk tipa2 disable product yg diselect -->
     <script>
+        var totalCost = 0;
         $(".select-product").on('change', function() {
             const id = $(this).val();
 
@@ -52,6 +53,22 @@
             } else {
                 $('.product-' + id).prop('disabled', true);
             }
+        });
+
+        $(".trigger").on('change', function() {
+            const checked = $(this).is(":checked");
+            if (checked) {
+                totalCost += $(this).data('price');
+            } else {
+                totalCost -= $(this).data('price');
+            }
+
+            const fieldCost = document.querySelector('.total-cost');
+            const cost = document.querySelector('.allCost');
+
+            cost.value = totalCost;
+            fieldCost.textContent = totalCost;
+
         });
     </script>
     <!-- coba swall -->

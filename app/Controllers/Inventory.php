@@ -73,11 +73,15 @@ class Inventory extends BaseController
     {
         $priority = ($this->request->getVar('priority') != 'YES') ? "NO" : "YES";
         $date_needed = ($this->request->getVar('date_needed') != "0000-00-00") ? $this->request->getVar('date_needed') : date('Y/m/d');
+
+        $totalPrice = $this->request->getVar('price') * $this->request->getVar('quantity');
         $data = [
             'id_product' => $this->request->getVar('id_product'),
             'priority' => $priority,
             'date_needed' => $date_needed,
             'quantity' => $this->request->getVar('quantity'),
+            'status_submission' => "Waiting",
+            'total_price' => $totalPrice
         ];
 
         $SubmissionModel = new SubmissionModel();
@@ -85,10 +89,6 @@ class Inventory extends BaseController
         $SubmissionModel->save($data);
 
         // buat flash data
-        session()->setFlashdata('Alert', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Product Berhasil Diajukan!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>');
         session()->setFlashdata('Success', 'Product berhasil diajukan!');
         return redirect()->to('/inventory/Submit_EmptyStock')->withInput();
     }
@@ -124,11 +124,18 @@ class Inventory extends BaseController
         // ambil id dari tiap2 barang yg diajukan
         $data_item = $this->request->getVar('id[]');
 
+        $total_cost = $this->request->getVar('total_cost');
+
         // buat purchasing list baru!
         // ErrorListTama tambahin buat pengaju
         // 'created_by' => session()->get('name')
         $dataPurchase = [
-            'date_needed' => $this->request->getVar('date_needed')
+            'date_needed' => $this->request->getVar('date_needed'),
+            'created_by' => session()->get('name'),
+            'status' => "proccess",
+            'total_cost' => $total_cost,
+            'pm_approved' => "Waiting"
+
         ];
 
         // insert ke purchasing list table
@@ -144,7 +151,6 @@ class Inventory extends BaseController
             $detail = [
                 'id_purchasing' => $getPurchaseId,
                 'id_submission' => $id_sub,
-                'quantity' => 1,
             ];
 
             $this->TransactionModel->save($detail);
@@ -185,25 +191,48 @@ class Inventory extends BaseController
     public function approving_list($id)
     {
         $role = session()->get('level_user');
+
         switch ($role) {
             case 3:
                 $this->PurchasingModel
                     ->where('id', $id)
-                    ->set(['pm_approved' => "Approved"])
+                    ->set([
+                        'pm_approved' => "Approved",
+                        'gm_approved' => "Waiting"
+                    ])
                     ->update();
                 break;
             case 4:
                 $this->PurchasingModel
                     ->where('id', $id)
-                    ->set(['gm_approved' => "Approved"])
+                    ->set([
+                        'gm_approved' => "Approved",
+                        'cfo_approved' => "Waiting"
+                    ])
                     ->update();
                 break;
             case 5:
                 $this->PurchasingModel
                     ->where('id', $id)
-                    ->set(['cfo_approved' => "Approved"])
+                    ->set([
+                        'cfo_approved' => "Approved",
+                        'status' => "Approved"
+                    ])
                     ->update();
                 break;
+        }
+
+        if ($role == 5) {
+            // ambil id tabel submission untuk diupdate
+            $dataSubmission = $this->SubmissionModel->getDataByIdPL($id);
+            foreach ($dataSubmission as $ds) {
+                $this->SubmissionModel
+                    ->where('id', $ds)
+                    ->set([
+                        'status_submission' => "Approved"
+                    ])
+                    ->update();
+            }
         }
 
         session()->setFlashdata('Success', 'Purchase List Berhasil Dikonfirmasi!');
@@ -214,9 +243,9 @@ class Inventory extends BaseController
     // controller untuk menolak list
     public function declining_list($id)
     {
+
+        // tambahkan validasi rolenya!
         $role = session()->get('level_user');
-        $name = session()->get('name');
-        $desc = "Declined by " . $name;
 
         // dd($desc);
         switch ($role) {
@@ -225,7 +254,7 @@ class Inventory extends BaseController
                     ->where('id', $id)
                     ->set([
                         'pm_approved' => "Declined",
-                        'declined_desc' => $desc
+                        'status' => "Declined"
                     ])
                     ->update();
                 break;
@@ -234,7 +263,7 @@ class Inventory extends BaseController
                     ->where('id', $id)
                     ->set([
                         'gm_approved' => "Declined",
-                        'declined_desc' => $desc
+                        'status' => "Declined"
                     ])
                     ->update();
                 break;
@@ -243,10 +272,20 @@ class Inventory extends BaseController
                     ->where('id', $id)
                     ->set([
                         'cfo_approved' => "Declined",
-                        'declined_desc' => $desc
+                        'status' => "Declined"
                     ])
                     ->update();
                 break;
+        }
+
+        $dataSubmission = $this->SubmissionModel->getDataByIdPL($id);
+        foreach ($dataSubmission as $ds) {
+            $this->SubmissionModel
+                ->where('id', $ds)
+                ->set([
+                    'status_submission' => "Declined"
+                ])
+                ->update();
         }
 
         session()->setFlashdata('Success', 'Purchase List Berhasil Ditolak!');

@@ -22,21 +22,30 @@ class AddPurchasing extends Migration
                 'type' => 'DATE',
             ],
             'pm_approved' => [
-                'type' => 'ENUM("Approved","Declined")',
+                'type' => 'ENUM("Approved","Declined", "Waiting")',
                 'null' => true
             ],
             'gm_approved' => [
-                'type' => 'ENUM("Approved","Declined")',
+                'type' => 'ENUM("Approved","Declined", "Waiting")',
                 'null' => true
             ],
             'cfo_approved' => [
-                'type' => 'ENUM("Approved","Declined")',
+                'type' => 'ENUM("Approved","Declined", "Waiting")',
                 'null' => true
             ],
-            'declined_desc' => [
-                'type' => 'TEXT',
-                'null' => true
+            'created_by' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50
             ],
+            'total_cost' => [
+                'type' => 'INT',
+                'constraint' => 20
+            ],
+            'status' => [
+                'type' => 'ENUM("Approved","Declined", "Proccess")',
+                'default' => 'Proccess',
+                'null' => true
+            ]
 
         ]);
 

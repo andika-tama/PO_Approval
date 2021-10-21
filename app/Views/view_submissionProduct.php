@@ -21,7 +21,6 @@
                     </div>
                     <div class="card-body">
 
-                        <input type="hidden" value="<?= session()->get('id') ?>">
                         <div class="container-fluid">
                             <div class="row mt-3">
                                 <div class="col-3">
@@ -75,6 +74,7 @@
                                                     <th scope="col">Prority</th>
                                                     <th scope="col">Quantity Needed</th>
                                                     <th scope="col">Date Needed</th>
+                                                    <th scope="col">Total Price</th>
                                                     <th scope="col">Product Name</th>
                                                 </tr>
                                             </thead>
@@ -83,16 +83,23 @@
                                                     <tr>
                                                         <!-- check box select product -->
                                                         <td scope="row" class="text-center">
-                                                            <input name="id[]" type="checkbox" value="<?= $s['id'] ?>">
+                                                            <input name="id[]" type="checkbox" value="<?= $s['id'] ?>" class="trigger" data-price="<?= $s['total_price'] ?>">
                                                         </td>
                                                         <td class="text-center"><?= $s['priority'] ?></td>
                                                         <td class="text-center"><?= $s['quantity'] ?></td>
                                                         <td class="text-center"><?= $s['date_needed'] ?></td>
+                                                        <td class=""><?= $s['total_price'] ?></td>
                                                         <td class=""><?= $s['name_product'] ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
+
+                                        <div class="div">
+                                            <h2>Total Cost :</h2>
+                                            <div class="total-cost">0</div>
+                                            <input type="hidden" name="total_cost" class="allCost" value="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

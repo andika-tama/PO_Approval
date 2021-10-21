@@ -13,10 +13,12 @@ class SubmissionSeeder extends Seeder
             $priority = ($i % 7 == 0) ? "YES" : "NO";
 
             $data = [
-                'id_product' => random_int(1, 30),
+                'id_product' => $i,
                 'priority'    => $priority,
                 'quantity' => random_int(1, 10),
                 'date_needed' => date('2021-12-12'),
+                'status_submission' => "Waiting",
+                'total_price' => random_int(1000, 100000)
 
             ];
 

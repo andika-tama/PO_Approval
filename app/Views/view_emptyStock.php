@@ -14,11 +14,6 @@ $builder = $db->table('submission');
         <div class="col-9 p-5">
             <h2>Ajukan Stock Kosong!</h2>
             <hr>
-            <div class="row mb-3 mt-3">
-                <div class="col">
-                    <?= session()->getFlashdata('Alert') ?>
-                </div>
-            </div>
             <div class="row mb-3">
                 <div class="col-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddProduct">
@@ -29,7 +24,7 @@ $builder = $db->table('submission');
             <table class="table" id="tb_product">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Pilih Product</th>
+                        <th scope="col">Select Product</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Priority</th>
                         <th scope="col" width="30px">Quantity</th>
@@ -50,6 +45,7 @@ $builder = $db->table('submission');
 
                             <form action="/inventory/submit_data" method="POST">
                                 <input type="hidden" name="id_product" value="<?= $p['id'] ?>">
+                                <input type="hidden" name="price" value="<?= $p['price'] ?>">
                                 <td><?= $p['name_product'] ?></td>
                                 <td class="text-center">
                                     <input type="checkbox" name="priority" value="YES" class="product-<?= $p['id'] ?>" disabled>

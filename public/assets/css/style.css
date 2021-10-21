@@ -79,6 +79,7 @@
 .sidebar-red {
     background: linear-gradient(180deg, #F50057 0%, #FC045C 49.48%, #FD4A89 100%);
     min-height: 100vh;
+    box-shadow: 3px 0px 25px rgba(0, 0, 0, 0.35);
 }
 
 .menubar {
@@ -97,6 +98,10 @@
 
 .menubar:hover {
     background: #EB0456;
+}
+
+.menubar a:hover {
+    color: #FFE600;
 }
 
 .icon-sb {
