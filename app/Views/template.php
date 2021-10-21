@@ -128,13 +128,28 @@
         }
         // bila gagal
         if (flashDataDanger) {
-            console.log("kok ra masuk");
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: flashDataDanger,
             })
         }
+
+        // cek apakah sudah ada barang yg dipilih
+        $('.purchasing-list-sub').submit(function(e) {
+
+            e.preventDefault();
+
+            if (totalCost === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Tidak ada produk yang dipilih! Product harus dipilih!",
+                })
+            } else {
+                $(this).unbind('submit').submit();
+            }
+        });
     </script>
 </body>
 

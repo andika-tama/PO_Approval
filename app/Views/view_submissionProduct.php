@@ -8,7 +8,7 @@
         <div class="col-9 p-5">
             <h2>Buat Purchase List</h2>
             <hr>
-            <form action="/inventory/make_purchaseList" method="POST">
+            <form action="/inventory/make_purchaseList" method="POST" class="purchasing-list-sub">
                 <div class="card">
                     <div class="card-header bg-login text-white text-center">
                         Make Purchase List!

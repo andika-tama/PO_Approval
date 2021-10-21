@@ -38,69 +38,59 @@
                             <?php
                             switch ($pl['pm_approved']) {
                                 case "Approved":
-                                    $textColor = "text-success";
-                                    $textContent = $pl['pm_approved'];
+                                    $textColor = "bg-success";
                                     break;
 
                                 case "Declined":
-                                    $textColor = "text-danger";
-                                    $textContent = $pl['pm_approved'];
+                                    $textColor = "bg-danger";
                                     break;
-                                default:
-                                    $textColor = "text-warning";
-                                    $textContent = "Waiting";
+                                case "Waiting":
+                                    $textColor = "bg-warning";
                                     break;
                             }
                             ?>
-
-
-                            <td class="<?= $textColor ?>">
-                                <?= $textContent ?>
+                            <td>
+                                <span class="badge rounded-pill <?= $textColor ?>">
+                                    <?= $pl['pm_approved']; ?>
+                                </span>
                             </td>
-
                             <?php
                             switch ($pl['gm_approved']) {
                                 case "Approved":
-                                    $textColor = "text-success";
-                                    $textContent = $pl['gm_approved'];
+                                    $textColor = "bg-success";
                                     break;
 
                                 case "Declined":
-                                    $textColor = "text-danger";
-                                    $textContent = $pl['gm_approved'];
+                                    $textColor = "bg-danger";
                                     break;
-                                default:
-                                    $textColor = "text-warning";
-                                    $textContent = "Waiting";
+                                case "Waiting":
+                                    $textColor = "bg-warning";
                                     break;
                             }
                             ?>
-                            <td class="<?= $textColor ?>">
-
-                                <?= ($pl['gm_approved'] == NULL && $pl['pm_approved'] == "Approved") ? "Waiting" : $pl['gm_approved'] ?>
-
+                            <td>
+                                <span class="badge rounded-pill <?= $textColor ?> <?= ($pl['gm_approved'] == NULL) ? "d-none" : "" ?> ">
+                                    <?= $pl['gm_approved']; ?>
+                                </span>
                             </td>
-
                             <?php
                             switch ($pl['cfo_approved']) {
                                 case "Approved":
-                                    $textColor = "text-success";
-                                    $textContent = $pl['cfo_approved'];
+                                    $textColor = "bg-success";
                                     break;
 
                                 case "Declined":
-                                    $textColor = "text-danger";
-                                    $textContent = $pl['cfo_approved'];
+                                    $textColor = "bg-danger";
                                     break;
-                                default:
-                                    $textColor = "text-warning";
-                                    $textContent = "Waiting";
+                                case "Waiting":
+                                    $textColor = "bg-warning";
                                     break;
                             }
                             ?>
-
-                            <td class="<?= $textColor ?>">
-                                <?= ($pl['cfo_approved'] == NULL && $pl['gm_approved'] == "Approved") ? "Waiting" : $pl['cfo_approved'] ?>
+                            <td>
+                                <span class="badge rounded-pill <?= $textColor ?> <?= ($pl['cfo_approved'] == NULL) ? "d-none" : "" ?>">
+                                    <?= $pl['cfo_approved']; ?>
+                                </span>
                             </td>
                             <td>
                                 <a href="#">Lihat Detail</a>
