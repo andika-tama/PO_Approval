@@ -99,7 +99,7 @@
                                 <a href="/inventory/resubmit_purchase/<?= $pl['id'] ?>" class="btn btn-danger btn-sm bg-login border-login fw-bold <?= ($pl['status'] !== "Declined") ? "d-none" : "" ?>">Resubmit</a>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-primary btn-sm border-login fw-bold <?= ($pl['status'] !== "Declined") ? "d-none" : "" ?>">Detail</a>
+                                <a href="/inventory/detail_purchase_list/<?= $pl['id'] ?>" class="btn btn-primary btn-sm border-login fw-bold">Detail</a>
                             </td>
 
                         </tr>

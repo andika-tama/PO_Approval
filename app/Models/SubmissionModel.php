@@ -116,4 +116,21 @@ class SubmissionModel extends Model
 
         return $result;
     }
+
+    public function getDataSubByIdPL($id_pl)
+    {
+        $db = db_connect();
+        $builder = $db->table('submission');
+
+        $result = $builder->select('*')
+            ->join('transaction', 'transaction.id_submission = submission.id')
+            ->join('purchasing_list', 'purchasing_list.id = transaction.id_purchasing')
+            ->join('product', 'submission.id_product = product.id')
+            ->where("purchasing_list.id", $id_pl)
+            ->get()
+            ->getResultArray();
+
+
+        return $result;
+    }
 }

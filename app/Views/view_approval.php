@@ -46,12 +46,12 @@ switch (session()->get('level_user')) {
                             <td class="text-end"><?= $pl['total_cost'] ?></td>
                             <td class="text-end"><?= $pl['date_needed'] ?></td>
                             <td class="">
-                                <a class="btn btn-success btn-sm approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
-                                <a class="btn btn-danger btn-sm decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
+                                <a class="btn btn-success border-login fw-bold btn-sm approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
+                                <a class="btn btn-danger border-login fw-bold btn-sm decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
                             </td>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
+                                <a href="/inventory/detail_purchase_list/<?= $pl['id'] ?>" class="btn btn-primary btn-sm border-login fw-bold">Detail</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

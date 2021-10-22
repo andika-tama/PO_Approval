@@ -427,4 +427,32 @@ class Inventory extends BaseController
         // kembalikan ke view purchasing list
         return redirect()->to('/inventory/view_purchaselist')->withInput();
     }
+
+    // untuk lihat detail purchase list
+    public function detail_purchase_list($id = NULL)
+    {
+        if ($id == null) {
+            return redirect()->to('/inventory')->withInput();
+        }
+
+        $dataPurchase = $this->PurchasingModel->find($id);
+
+        if (!$dataPurchase) {
+            return redirect()->to('/inventory')->withInput();
+        }
+
+        // ambil seluruh data barang yg telah diajukan
+        // ambil id sub dari transaksi
+        $dataSub = $this->SubmissionModel->getDataSubByIdPL($id);
+
+        // submission gak usah
+        $data = [
+            'title' => 'Detail Purchase List',
+            'purchase' => $dataPurchase,
+            'dataSub' => $dataSub
+        ];
+
+        // tampilkan view pembuatan pruchasing list (form)
+        return view('view_detail_purchase_list', $data);
+    }
 }

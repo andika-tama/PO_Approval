@@ -128,3 +128,7 @@
     padding: 20px;
     font-size: 1.6em;
 }
+
+.img-status {
+    max-width: 200px;
+}
