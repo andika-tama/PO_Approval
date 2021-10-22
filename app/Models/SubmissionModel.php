@@ -33,7 +33,7 @@ class SubmissionModel extends Model
         $builder = $db->table('submission');
 
         // Select * from submission join product where product.id = sum... AND priority = NO AND (status = waiting OR Declined) orderBy date needed ASC
-        $builder->select('*')
+        $builder->select(['submission.id', 'submission.id_product', 'submission.quantity', 'submission.priority', 'submission.date_needed', 'submission.status_submission', 'submission.total_price', 'product.name_product', 'product.price'])
             ->join('product', 'product.id = submission.id_product')
             ->where("priority = 'NO'")
             ->GroupStart()->orWhere("status_submission = 'Waiting'")->orWhere("status_submission = 'Declined'")
@@ -43,7 +43,7 @@ class SubmissionModel extends Model
 
 
         $builder2 = $db->table('submission');
-        $builder2->select('*')
+        $builder2->select(['submission.id', 'submission.id_product', 'submission.quantity', 'submission.priority', 'submission.date_needed', 'submission.status_submission', 'submission.total_price', 'product.name_product', 'product.price'])
             ->join('product', 'product.id = submission.id_product')
             ->where("priority = 'YES'")
             ->GroupStart()

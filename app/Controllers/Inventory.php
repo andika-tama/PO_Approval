@@ -121,6 +121,8 @@ class Inventory extends BaseController
         // ambil seluruh data barang yg telah diajukan
         $SubmissionModel = new SubmissionModel();
         $getData = $SubmissionModel->getData();
+
+
         $data = [
             'submission' => $getData,
             'title' => 'Purchasing List'
@@ -166,13 +168,16 @@ class Inventory extends BaseController
                 ])
                 ->update();
 
+            // input ke data transaksi
             $detail = [
                 'id_purchasing' => $getPurchaseId,
                 'id_submission' => $id_sub,
             ];
-
             $this->TransactionModel->save($detail);
         }
+
+
+
 
         // ubah status yg baru jadi processing
         session()->setFlashdata('Success', 'Purchase List Berhasil Dibuat!');
@@ -368,6 +373,9 @@ class Inventory extends BaseController
         $total_cost = $this->request->getVar('total_cost');
         $id_purchase = $this->request->getVar('id_pl');
 
+        // dd($data_item);
+
+        // buat purchasing list
         $this->PurchasingModel
             ->where('id', $id_purchase)
             ->set([
@@ -383,14 +391,14 @@ class Inventory extends BaseController
         $deleteData = $this->TransactionModel->getIdByPL($id_purchase);
         $idSubmission = $this->TransactionModel->getIdSubByPL($id_purchase);
 
-        foreach ($idSubmission as $idS) {
-            $this->SubmissionModel
-                ->where('id', $idS['id_submission'])
-                ->set([
-                    'status_submission' => "Proccess",
-                ])
-                ->update();
-        }
+        // foreach ($idSubmission as $idS) {
+        //     $this->SubmissionModel
+        //         ->where('id', $idS['id_submission'])
+        //         ->set([
+        //             'status_submission' => "Proccess",
+        //         ])
+        //         ->update();
+        // }
 
         foreach ($deleteData as $dd) {
             $this->TransactionModel->delete($dd['id']);

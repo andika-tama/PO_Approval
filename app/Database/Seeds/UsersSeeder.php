@@ -10,7 +10,7 @@ class UsersSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'william',
+                'username' => 'william',
                 'password'    => md5("william1"),
                 'name' => "Willy William",
                 'level_user' => 1

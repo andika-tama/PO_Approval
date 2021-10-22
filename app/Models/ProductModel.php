@@ -18,7 +18,7 @@ class ProductModel extends Model
         $builder = $db->table('product');
 
         $result = $builder->select('*')
-            ->where('product.id NOT IN (select id_product from submission)', NULL, FALSE)
+            ->where("product.id NOT IN (select id_product from submission WHERE status_submission != 'Approved')", NULL, FALSE)
             ->get()
             ->getResultArray();
 

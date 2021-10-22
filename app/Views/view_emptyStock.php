@@ -21,7 +21,7 @@ $builder = $db->table('submission');
                     </button>
                 </div>
             </div>
-            <table class="table" id="tb_product">
+            <table class="table hover" id="tb_product">
                 <thead>
                     <tr class="text-center">
                         <th scope="col">Select Product</th>
@@ -34,13 +34,11 @@ $builder = $db->table('submission');
                 </thead>
                 <tbody>
                     <?php foreach ($product as $p) :
-                        // cek apakah product dalam pengajuan
-                        $query = $builder->select('*')->where('id_product', $p['id'])->get()->getNumRows();
                     ?>
                         <tr>
                             <!-- check box select product -->
                             <td scope="row" class="text-center">
-                                <input name="id" type="checkbox" value="<?= $p['id'] ?>" class="select-product" <?= ($query > 0) ? "disabled" : "" ?>>
+                                <input name="id" type="checkbox" value="<?= $p['id'] ?>" class="select-product">
                             </td>
 
                             <form action="/inventory/submit_data" method="POST">
@@ -58,7 +56,7 @@ $builder = $db->table('submission');
                                 </td>
                                 <td class="text-center">
                                     <div class="d-grid gap-2">
-                                        <button type="submit" name="submit" class="btn <?= ($query > 0) ? "btn-warning" : "btn-primary" ?>  product-<?= $p['id'] ?>" disabled> <?= ($query > 0) ? "Dalam Pengajuan" : "Ajukan Pembelian" ?> </button>
+                                        <button type="submit" name="submit" class="btn btn-primary product-<?= $p['id'] ?>" disabled> Ajukan Pembelian </button>
                                     </div>
                                 </td>
                             </form>
