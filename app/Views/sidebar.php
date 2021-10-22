@@ -1,4 +1,4 @@
-<div class="col-3 sidebar-red p-0">
+<div class="col-3 sidebar-red p-0 position-fixed">
 
     <div class="container-fluid">
         <div class="row">
@@ -37,3 +37,5 @@
     </div>
 
 </div>
+
+<div class="col-3"></div>

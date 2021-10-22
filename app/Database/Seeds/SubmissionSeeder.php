@@ -9,7 +9,8 @@ class SubmissionSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 1; $i < 35; $i++) {
+        $this->call('ProductSeeder');
+        for ($i = 1; $i < 2; $i++) {
             $priority = ($i % 7 == 0) ? "YES" : "NO";
 
             $data = [

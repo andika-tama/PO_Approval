@@ -8,6 +8,7 @@ class UsersSeeder extends Seeder
 {
     public function run()
     {
+        $this->call('RoleSeeder');
         $data = [
             [
                 'username' => 'william',
@@ -37,6 +38,36 @@ class UsersSeeder extends Seeder
                 'username' => 'ruka',
                 'password'    => md5("ruka1"),
                 'name' => "Ruka Rumawa",
+                'level_user' => 5
+            ],
+            [
+                'username' => 'inventory',
+                'password'    => md5("123"),
+                'name' => "Raden Ajeng",
+                'level_user' => 1
+            ],
+            [
+                'username' => 'purchasing',
+                'password'    => md5("123"),
+                'name' => "Kartini",
+                'level_user' => 2
+            ],
+            [
+                'username' => 'purchasing_manager',
+                'password'    => md5("123"),
+                'name' => "Ir. Soekarna",
+                'level_user' => 3
+            ],
+            [
+                'username' => 'general_manager',
+                'password'    => md5("123"),
+                'name' => "Ali",
+                'level_user' => 4
+            ],
+            [
+                'username' => 'cfo',
+                'password'    => md5("123"),
+                'name' => "Rahmawati",
                 'level_user' => 5
             ],
         ];
