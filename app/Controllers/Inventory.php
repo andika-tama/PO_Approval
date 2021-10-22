@@ -189,7 +189,8 @@ class Inventory extends BaseController
     {
         $data = [
             'purchasing_list' => $this->PurchasingModel->findAll(),
-            'title' => 'Approval Status'
+            'title' => 'Approval Status',
+            'title_menu' => 'Daftar Purchase List'
         ];
 
         return view('view_purchaselist', $data);
@@ -322,7 +323,8 @@ class Inventory extends BaseController
     {
         $data = [
             'purchasing_list' => $this->PurchasingModel->getDeclined(),
-            'title' => 'List Declined Purchase List'
+            'title' => 'List Declined Purchase List',
+            'title_menu' => 'Daftar Purchase List : Declined'
         ];
 
         return view('view_purchaselist', $data);

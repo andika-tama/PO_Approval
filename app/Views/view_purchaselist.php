@@ -6,34 +6,37 @@
     <div class="row">
         <?= $this->include('sidebar') ?>
         <div class="col-9 p-5">
-            <h2>Daftar Purchase List</h2>
+            <h2><?= $title_menu ?></h2>
             <hr>
             <div class="row mb-3 mt-3">
                 <div class="col">
                     <?= session()->getFlashdata('Alert') ?>
                 </div>
             </div>
-            <table class="table table-striped" id="tb_product">
+            <table class="table table-striped table-bordered hover table-sm" id="tb_product">
                 <thead>
                     <tr class="text-center">
                         <th scope="col">No</th>
-                        <th scope="col">Date Ceated</th>
-                        <th scope="col">Date Needed</th>
+                        <th scope="col" width="100px">Created By</th>
+                        <th scope="col">Total Cost</th>
+                        <th scope="col" width="30px">Date Needed</th>
                         <th scope="col" width="30px">PM Approval</th>
                         <th scope="col" width="30px">GM Approval</th>
                         <th scope="col" width="30px">CFO Approval</th>
                         <!-- <th scope="col">Comment</th> -->
-                        <th scope="col">Detail</th>
+                        <th scope="col">Aksi</th>
+                        <th scope="col" width="30px">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $i = 1;
                     foreach ($purchasing_list as $pl) : ?>
-                        <tr>
-                            <td><?= $pl['id'] ?></td>
-                            <td><?= $pl['created_at'] ?></td>
-                            <td><?= $pl['date_needed'] ?></td>
+                        <tr class="text-center">
+                            <td class="text-center"><?= $pl['id'] ?></td>
+                            <td class="text-start"><?= $pl['created_by'] ?></td>
+                            <td class="text-end"><?= $pl['total_cost'] ?></td>
+                            <td class="text-center"><?= $pl['date_needed'] ?></td>
 
                             <?php
                             switch ($pl['pm_approved']) {
@@ -93,8 +96,12 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="/inventory/resubmit_purchase/<?= $pl['id'] ?>">Ajukan Ulang</a>
+                                <a href="/inventory/resubmit_purchase/<?= $pl['id'] ?>" class="btn btn-danger btn-sm bg-login border-login fw-bold <?= ($pl['status'] !== "Declined") ? "d-none" : "" ?>">Resubmit</a>
                             </td>
+                            <td>
+                                <a href="#" class="btn btn-primary btn-sm border-login fw-bold <?= ($pl['status'] !== "Declined") ? "d-none" : "" ?>">Detail</a>
+                            </td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

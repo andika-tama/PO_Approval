@@ -21,13 +21,14 @@ switch (session()->get('level_user')) {
     <div class="row">
         <?= $this->include('sidebar') ?>
         <div class="col-9 p-5">
-            <h2>Daftar Purchase List</h2>
+            <h2>Approval Purchase List</h2>
             <hr>
-            <table class="table table-striped" id="tb_product">
+            <table class="table table-striped table-bordered table-sm" id="tb_product">
                 <thead>
                     <tr class="text-center">
                         <th scope="col" width="30px">No</th>
-                        <th scope="col">Date Ceated</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Total Cost</th>
                         <th scope="col">Date Needed</th>
                         <th scope="col"><?= $name ?></th>
                         <!-- <th scope="col">Comment</th> -->
@@ -38,17 +39,19 @@ switch (session()->get('level_user')) {
                     <?php
                     $i = 1;
                     foreach ($purchasing_list as $pl) : ?>
+
                         <tr class="text-center">
                             <td><?= $i++ ?></td>
-                            <td><?= $pl['created_at'] ?></td>
-                            <td><?= $pl['date_needed'] ?></td>
+                            <td class="text-start"><?= $pl['created_by'] ?></td>
+                            <td class="text-end"><?= $pl['total_cost'] ?></td>
+                            <td class="text-end"><?= $pl['date_needed'] ?></td>
                             <td class="">
-                                <a class="btn btn-primary approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
-                                <a class="btn btn-danger decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
+                                <a class="btn btn-success btn-sm approval-button" href="/inventory/approving_list/<?= $pl['id'] ?>">Approve</a>
+                                <a class="btn btn-danger btn-sm decline-button" href="/inventory/declining_list/<?= $pl['id'] ?>">Decline</a>
                             </td>
                             </td>
                             <td>
-                                <a href="#">Lihat Detail</a>
+                                <a href="#" class="btn btn-primary btn-sm">Lihat Detail</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

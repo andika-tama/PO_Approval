@@ -16,16 +16,17 @@ $builder = $db->table('submission');
             <hr>
             <div class="row mb-3">
                 <div class="col-3">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddProduct">
+                    <button type="button" class="btn btn-danger bg-login border-login" data-bs-toggle="modal" data-bs-target="#AddProduct">
                         Add Product
                     </button>
                 </div>
             </div>
-            <table class="table hover" id="tb_product">
+            <table class="table table-hover" id="tb_product">
                 <thead>
                     <tr class="text-center">
                         <th scope="col">Select Product</th>
                         <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
                         <th scope="col">Priority</th>
                         <th scope="col" width="30px">Quantity</th>
                         <th scope="col">Date Needed</th>
@@ -44,7 +45,10 @@ $builder = $db->table('submission');
                             <form action="/inventory/submit_data" method="POST">
                                 <input type="hidden" name="id_product" value="<?= $p['id'] ?>">
                                 <input type="hidden" name="price" value="<?= $p['price'] ?>">
-                                <td><?= $p['name_product'] ?></td>
+                                <td>
+                                    <div class="fw-bold"><?= $p['name_product'] ?></div>
+                                </td>
+                                <td><?= $p['price'] ?></td>
                                 <td class="text-center">
                                     <input type="checkbox" name="priority" value="YES" class="product-<?= $p['id'] ?>" disabled>
                                 </td>
@@ -56,7 +60,7 @@ $builder = $db->table('submission');
                                 </td>
                                 <td class="text-center">
                                     <div class="d-grid gap-2">
-                                        <button type="submit" name="submit" class="btn btn-primary product-<?= $p['id'] ?>" disabled> Ajukan Pembelian </button>
+                                        <button type="submit" name="submit" class="btn btn-danger bg-login border-login product-<?= $p['id'] ?>" disabled> Ajukan Pembelian </button>
                                     </div>
                                 </td>
                             </form>
@@ -104,7 +108,7 @@ $builder = $db->table('submission');
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add Product!</button>
+                <button type="submit" class="btn btn-danger bg-login border-login">Add Product!</button>
             </div>
             </form>
         </div>

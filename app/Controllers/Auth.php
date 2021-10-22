@@ -28,7 +28,7 @@ class Auth extends BaseController
         $userModel = new UsersModel();
 
         // ambil data sesuai usernamenya
-        $dataUser = $userModel->where('username', $username)->first();
+        $dataUser = $userModel->join('role', 'role.id = users.level_user')->where('username', $username)->first();
 
         // cek apakah username tersedia
         if ($dataUser) {
@@ -41,6 +41,7 @@ class Auth extends BaseController
                     'id' => $dataUser['id'],
                     'name' => $dataUser['name'],
                     'level_user' => $dataUser['level_user'],
+                    'role' => $dataUser['role_name'],
                     'is_logged' => TRUE
                 ];
 

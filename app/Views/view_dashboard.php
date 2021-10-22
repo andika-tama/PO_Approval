@@ -23,7 +23,7 @@ if ($task !== 0) {
         <?= $this->include('sidebar') ?>
         <div class="col-9 p-5">
 
-            <h2>Dashboard</h2>
+            <h2>Dashboard : <b class="sub-color"><?= session()->get('role') ?></b></h2>
             <hr>
 
             <?php if (session()->get('level_user') == 2) :  ?>
